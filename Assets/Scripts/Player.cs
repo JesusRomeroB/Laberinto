@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public float speed = 5f;
     public Transform movePoint;
     public LayerMask Wall;
+
+    public Vector2 GetPosition => transform.position;
     // Start is called before the first frame update
     void Start()
     {
