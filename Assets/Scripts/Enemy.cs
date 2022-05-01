@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public Vector2 GetPosition => transform.position;
 
     private int waypointIndex = 0;
-    public Transform Player;
+    private Transform Player;
     NavMeshAgent agent;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,11 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+    }
+
+    public void Init(Player player)
+    {
+         Player = player.transform;
     }
 
     public void SetPath(List<Tile> path)

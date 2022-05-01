@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     public float speed = 5f;
     public Transform movePoint;
     public LayerMask Wall;
+    public LayerMask Win;
 
+    private bool won;
     public Vector2 GetPosition => transform.position;
     // Start is called before the first frame update
     void Start()
@@ -38,6 +41,27 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        if (won == true)
+        {
+            // PlayerPrefs.SetString("EndText", "YOU WON");
+            // SceneManager.LoadScene("EndScene");
+            GameManager.Instance.Score();
+            won = false;
+        }
+        
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            PlayerPrefs.SetString("EndText", "YOU DIED");
+            SceneManager.LoadScene("EndScene");
+        }
+        if (collision.gameObject.tag == "Win")
+        {
+            won = true;
+        }
     }
 }
